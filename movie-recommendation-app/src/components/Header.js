@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
     const [value, setValue] = useState('/');
-    // const allTabs = ['/', '/', '/datasets'];
 
     const handleChange = (event, value) => {
         setValue(value);
@@ -20,5 +19,3 @@ const Header = () => {
 }
 
 export default Header
-
-// maroon # 8000 value={value} onChange={handleChange} 

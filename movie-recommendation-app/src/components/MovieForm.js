@@ -44,24 +44,18 @@ const MovieForm = () => {
     
 
     const handleChange = (event, value, name) => {
-        console.log(event.target.value);
-        console.log(event.target.name);
-        // console.log(value.placeholder);
         if (event.target.name === 'Genre1') {
             const newGenres = genres.slice();
             newGenres[0] = event.target.value;
             setGenres(newGenres);
-            console.log("1: "+newGenres);
         } else if (event.target.name === 'Genre2') {
             const newGenres = genres.slice();
             newGenres[1] = event.target.value;
             setGenres(newGenres);
-            console.log("2: "+newGenres);
         } else {
             const newGenres = genres.slice();
             newGenres[2] = event.target.value;
             setGenres(newGenres);
-            console.log("3: "+newGenres);
         }
     };
 
@@ -69,30 +63,20 @@ const MovieForm = () => {
         setPoster(event.target.files[0]);
         setImgName(event.target.files[0].name);
         setImgSize([]);
-        console.log("set poster");
-        // console.log(event.target.files[0]);
-        // console.log(event.target.files[0].name);
         const tmp = event.target.files[0].name;
         // console.log(imgName);// TODO image format check
         if (!tmp.match(/\.(jpg|jpeg|png)$/)){
-            console.log("wrong file name");
             setUploadErrMsg("Please upload correct format image file.");
         } else {
             setUploadErrMsg("");
         }
-        
     };
 
     const onSubmit = async (event) => {
-        console.log("sendin img");
         event.preventDefault();
         if (uploadErrMsg.length <= 0) {
             const formData = new FormData();
             formData.append('poster', poster);// backend get: file=req.files.poster
-            // console.log(event.target.files);
-            // const imgFile = event.target.files[0];
-            // const imgSize = event.target.files[0].size;
-            // console.log(imgName,imgSize);
             setIsLoading(true);
             try {
                 const res = await axios.post('/uploadimage', formData, {
@@ -102,18 +86,12 @@ const MovieForm = () => {
                 }).then(res => { // then print response status
                     setPoster([]);
                     setUploadErrMsg('');
-                    console.log("gettin response");
-                    // console.log(event.target.files[0].name);
-                    // console.log(imgSize);
                     setMessage(imgName);
-                    // setIsError(false);
                     setIsLoading(false);
                     setMovies(res.data.result);
                     setImgSize(res.data.metadata);
-                    // (res.data.metadata)
                 });
             } catch (error) {
-                console.log('image upload err');
                 setUploadErrMsg("Please refresh the page.");
             }
         } 
@@ -204,11 +182,7 @@ const MovieForm = () => {
                     </Typography>
                 </div>
                 <br />
-                {/* <div style={subtitleStyle}> */}
                 <div>
-                    {/* <div style={{ marginLeft : -410, width : 350 }}> */}
-
-                    
                     <label htmlFor="btn-upload">
                         <input
                             id="btn-upload"
@@ -241,7 +215,6 @@ const MovieForm = () => {
                         </Typography>
                     )}
                     <Button variant="contained" pl={10} onClick={onSubmit}>Upload</Button>
-                    {/* </div> */}
                 </div>
             </Box>
             {isLoading && (

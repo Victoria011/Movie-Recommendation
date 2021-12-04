@@ -3,7 +3,6 @@ import { TableRow, TableSortLabel, Toolbar, Typography, Paper, Checkbox, IconBut
 import { Tooltip, FormControlLabel, Switch, List, ListItem } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
-// import { DeleteIcon, FilterListIcon } from '@mui/icons-material';
 import { visuallyHidden } from '@mui/utils';
 import PropTypes from 'prop-types';
 import { useState } from "react";
@@ -165,7 +164,6 @@ const Metadata = ({metadata}) => {
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [featureDict, setFeatureDict] = useState([]);
     
-  
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
@@ -177,8 +175,6 @@ const Metadata = ({metadata}) => {
             const newSelecteds = metadata.map((n) => n.name);
             const featureList = metadata.map((n) => ({"name":n.name,"features":n.features.join(", ")}));
             setSelected(newSelecteds);
-            console.log("select all featureList");
-            console.log(featureList);
             setFeatureDict(featureList);
             return;
         }
@@ -212,18 +208,13 @@ const Metadata = ({metadata}) => {
               featureDict.slice(selectedIndex + 1),
             );
         }
+
         setSelected(newSelected);
         setFeatureDict(featureList);
-        console.log("Selected dataset: ")
-        console.log(newSelected);
-        console.log("Selected featurelist ")
-        console.log(featureList);
     };
   
     const handleChangePage = (event, newPage) => {
       setPage(newPage);
-      console.log("metadata len = ");
-      console.log(metadata.length);
     };
   
     const handleChangeRowsPerPage = (event) => {
